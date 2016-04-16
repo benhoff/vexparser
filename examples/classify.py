@@ -35,6 +35,7 @@ training_set.extend(working_on_utterances)
 
 
 classifier = NaiveBayesClassifier(training_set)
+print(classifier.show_informative_features(), classifier.labels())
 
 bogus_utterances = (
         'if you going to use nltk u may want to check this out spacy .io',

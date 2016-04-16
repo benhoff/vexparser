@@ -1,0 +1,63 @@
+subscription_address:
+    ['tcp://127.0.0.1:6006',
+    'tcp://127.0.0.1:6005',
+    'tcp://127.0.0.1:6001',
+    'tcp://127.0.0.1:6002']
+
+publish_address: 'tcp://127.0.0.1:6007'
+
+intents:
+    # this is the experience intent
+    experience:
+        # this is the min probability needed to warrant a response
+        probability: 0.95
+        # this is the text response that will be returned
+        # OPTIONAL
+        response: "I've been coding for 2.5 years. I know c++ and Python"
+        # get rid of common words
+        filter: 'common'
+
+        data:
+            ['how many years have you programming',
+            'how long have you been coding python',
+            'what languages do you know',
+            'what languages do you code',
+            'how long are you with python']
+
+    # this is the environment intent
+    environment:
+        # this is the min probability needed to warrant a response
+        probability: 0.95
+        # this is the text response that will be returned
+        # OPTIONAL
+        response: "I use vim for text editing with jedi-vim for autocompleition. The nyan cat comes from the terminal emualtor `terminology`"
+        # get rid of common words
+        filter: 'common'
+
+        data:
+            ['how do you get the nyancat',
+            'nyancat',
+            'cool IDE',
+            'whats that IDE',
+            "what's your vim setup",
+            'what is the editor',
+            'nice nyan cat as a cursor',
+            'nice cursor']
+
+    # this is the environment intent
+    working_on:
+        # this is the min probability needed to warrant a response
+        probability: 0.95
+        # this is the text response that will be returned
+        # OPTIONAL
+        response: "Creating a FAQ for this stream"
+        # get rid of common words
+        filter: 'common'
+
+        data:
+            ['what are you coding',
+            'what are you making',
+            'what are you doing',
+            'what are you doing at the moment',
+            'what are you working on',
+            'what you making']
