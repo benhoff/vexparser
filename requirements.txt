@@ -1,0 +1,5 @@
+nltk
+numpy
+pluginmanager
+textblob
+pyzmq
