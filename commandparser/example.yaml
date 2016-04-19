@@ -10,49 +10,48 @@ intents:
     # this is the experience intent
     experience:
         # this is the min probability needed to warrant a response
-        probability: 0.95
+        probability: 0.90
         # this is the text response that will be returned
         # OPTIONAL
-        response: "I've been coding for 2.5 years. I know c++ and Python"
-        # get rid of common words
-        filter: 'common'
+        response: "Ben's been programming for 2.5 years"
 
         data:
             ['how many years have you programming',
             'how long have you been coding python',
-            'what languages do you know',
-            'what languages do you code',
             'how long are you with python']
 
-    # this is the environment intent
-    environment:
+    # answers about how to get the nyancat
+    nyancat:
         # this is the min probability needed to warrant a response
-        probability: 0.95
+        probability: 0.90
+
         # this is the text response that will be returned
         # OPTIONAL
-        response: "I use vim for text editing with jedi-vim for autocompleition. The nyan cat comes from the terminal emualtor `terminology`"
-        # get rid of common words
-        filter: 'common'
+        response: "The nyancat is part of the terminal emulator `Terminology`. It's a custom theme that comes bundled with the terminal"
 
         data:
             ['how do you get the nyancat',
             'nyancat',
-            'cool IDE',
-            'whats that IDE',
-            "what's your vim setup",
-            'what is the editor',
             'nice nyan cat as a cursor',
             'nice cursor']
+
+    vim:
+        probability: 0.90
+        response: "the text editor is vim"
+    
+        data:
+            ['cool IDE',
+            'whats that IDE',
+            "what's your vim setup",
+            'what is the editor']
 
     # this is the environment intent
     working_on:
         # this is the min probability needed to warrant a response
-        probability: 0.95
+        probability: 0.90
         # this is the text response that will be returned
         # OPTIONAL
         response: "Creating a FAQ for this stream"
-        # get rid of common words
-        filter: 'common'
 
         data:
             ['what are you coding',

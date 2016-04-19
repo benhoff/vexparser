@@ -1,4 +1,5 @@
 import zmq
+from commandparser.util import stopwords
 
 
 class Messaging:
@@ -24,8 +25,11 @@ class Messaging:
             frame = self.subscription_socket.recv_pyobj()
             if len(frame) == 4:
                 msg = frame.pop()
+                msg = " ".join([w.lower()
+                                for w in msg.split()
+                                if not w in stopwords])
 
-            parse_result = self.parser.parse(msg)
-            for result in parse_result:
-                frame = ['vex', 'MSG', 'vex', result]
-                self.publish_socket.send_pyobj(frame)
+                parse_result = self.parser.parse(msg)
+                for result in parse_result:
+                    frame = ['vex', 'MSG', 'vex', result]
+                    self.publish_socket.send_pyobj(frame)

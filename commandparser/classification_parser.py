@@ -2,7 +2,7 @@ from textblob.classifiers import NaiveBayesClassifier
 from textblob.classifiers import MaxEntClassifier
 
 
-class _BayesClassifier:
+class _Classifier:
     def __init__(self, data):
         # self._classifier = NaiveBayesClassifier(data)
         self._classifier = MaxEntClassifier(data)
@@ -23,7 +23,7 @@ class _BayesClassifier:
 
 class ClassifyParser:
     def __init__(self, training_data):
-        self._classifier = _BayesClassifier(training_data)
+        self._classifier = _Classifier(training_data)
         self._labels_data= {}
 
         def _default_action():
@@ -45,7 +45,6 @@ class ClassifyParser:
         # need to define a min probability for when to take action
         probability_distribution = self._classifier.probability(text)
         results = []
-        print(text)
         for k, v in self._labels_data.items():
             value_prob = probability_distribution.prob(k)
             print(value_prob, k)
