@@ -4,7 +4,9 @@ import argparse
 import yaml
 
 from commandparser.classification_parser import ClassifyParser
+from commandparser.mark_parser import MarkParser
 from commandparser.messaging import Messaging
+from commandparser.callback_manager import CallbackManager
 import commandparser.util as util
 
 
@@ -31,23 +33,35 @@ def main(**kwargs):
         data = [(util.clean_text(d), intent_name) for d in intent_data['data']]
         training_data.extend(data)
 
-    classifier = ClassifyParser(training_data)
+    classify_parser = ClassifyParser(training_data)
+    mark_parser = MarkParser('@')
+
+    parsers = [classify_parser, mark_parser]
+    callback_manager = CallbackManager()
+
+    for parser in parsers:
+        # register the callback manager with the parsers
+        parser.add_callback_manager(callback_manager)
 
     for intent_name, intent_data in all_intent_data.items():
         response = None
         try:
             response = intent_data['response']
-            classifier.associate_label_with_action(intent_name,
-                                                   _return_closure(response))
+            text_return_callback = _return_closure(response)
+
+            callback_manager.associate_key_with_callback(intent_name,
+                                                         text_return_callback)
 
         except KeyError:
             pass
 
         probability = intent_data['probability']
-        classifier.define_minimum_probability_for_action(intent_name,
-                                                         probability)
+        classify_parser.define_minimum_probability_for_action(intent_name,
+                                                              probability)
 
-    messaging = Messaging(classifier, **file_data)
+    messaging = Messaging(classify_parser, **file_data)
+    # messaging = Messaging(mark_parser, **file_data)
+
     messaging.run()
 
 

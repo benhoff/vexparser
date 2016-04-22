@@ -51,7 +51,7 @@ intents:
         probability: 0.90
         # this is the text response that will be returned
         # OPTIONAL
-        response: "Creating a FAQ for this stream"
+        response: "Exclamation based command triggering"
 
         data:
             ['what are you coding',
