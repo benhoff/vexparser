@@ -4,8 +4,8 @@ from textblob.classifiers import MaxEntClassifier
 
 class _Classifier:
     def __init__(self, data):
-        self._classifier = NaiveBayesClassifier(data)
-        # self._classifier = MaxEntClassifier(data)
+        #self._classifier = NaiveBayesClassifier(data)
+        self._classifier = MaxEntClassifier(data)
 
     def update(self, data):
         """
@@ -53,7 +53,8 @@ class ClassifyParser:
             value_prob = probability_distribution.prob(k)
             print(value_prob, k)
             if v['minimum_probability'] < value_prob:
-                results.extend(self._callback_helper(k))
+                result = self._callback_helper(k)
+                results.extend(result)
 
         return results
 
@@ -63,8 +64,10 @@ class ClassifyParser:
         """
         result = []
         for manager in self.callback_managers:
-            callback_result = manager.call_callback(value_prob)
+            callback_result = manager.call_callback(key)
             if callback_result:
+                # TODO: take a look at this and make sure
+                # don't want to return a list
                 result.extend(callback_result)
 
         return result

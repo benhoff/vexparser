@@ -37,7 +37,7 @@ intents:
 
     vim:
         probability: 0.90
-        response: "the text editor is vim"
+        response: "the text editor Ben uses is vim"
     
         data:
             ['cool IDE',
@@ -45,13 +45,13 @@ intents:
             "what's your vim setup",
             'what is the editor']
 
-    # this is the environment intent
-    working_on:
+    # answers what I'm working on
+    making:
         # this is the min probability needed to warrant a response
         probability: 0.90
         # this is the text response that will be returned
         # OPTIONAL
-        response: "Exclamation based command triggering"
+        response: "Ben is working on basic command triggering using direct string comparisons"
 
         data:
             ['what are you coding',

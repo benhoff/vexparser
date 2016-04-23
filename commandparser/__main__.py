@@ -34,7 +34,7 @@ def main(**kwargs):
         training_data.extend(data)
 
     classify_parser = ClassifyParser(training_data)
-    mark_parser = MarkParser('@')
+    mark_parser = MarkParser()
 
     parsers = [classify_parser, mark_parser]
     callback_manager = CallbackManager()
@@ -59,8 +59,9 @@ def main(**kwargs):
         classify_parser.define_minimum_probability_for_action(intent_name,
                                                               probability)
 
-    messaging = Messaging(classify_parser, **file_data)
-    # messaging = Messaging(mark_parser, **file_data)
+    parsers = [mark_parser, classify_parser]
+
+    messaging = Messaging(parsers, **file_data)
 
     messaging.run()
 

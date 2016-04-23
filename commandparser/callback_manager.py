@@ -9,14 +9,14 @@ class CallbackManager:
         """
         returns list
         """
-        print(key)
         # note that callback should be a function
         try:
             callback = self._callbacks[key]
         except KeyError:
             pass
 
-        result = callback()
-        print(result)
+        result = []
         # FIXME
-        return list(result)
+        result.append(callback())
+
+        return result

@@ -10,9 +10,7 @@ class MarkParser:
         self.callback_managers.remove(manager)
 
     def is_marked(self, text: str):
-        print(text[0], text)
         if text[0] == self.mark:
-            print('made it here')
             return True
 
         return False
