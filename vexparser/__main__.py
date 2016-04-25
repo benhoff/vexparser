@@ -3,11 +3,11 @@ import argparse
 
 import yaml
 
-from commandparser.classification_parser import ClassifyParser
-from commandparser.mark_parser import MarkParser
-from commandparser.messaging import Messaging
-from commandparser.callback_manager import CallbackManager
-import commandparser.util as util
+from vexparser.classification_parser import ClassifyParser
+from vexparser.mark_parser import MarkParser
+from vexparser.messaging import Messaging
+from vexparser.callback_manager import CallbackManager
+import vexparser.util as util
 
 
 def _return_closure(text):

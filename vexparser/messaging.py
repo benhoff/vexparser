@@ -1,5 +1,5 @@
 import zmq
-import commandparser.util as util
+import vexparser.util as util
 
 
 class Messaging:
