@@ -3,3 +3,4 @@ numpy
 pluginmanager
 textblob
 pyzmq
+pyyaml
