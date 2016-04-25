@@ -32,7 +32,8 @@ setup(
         'pyzmq',
         'numpy',
         'textblob',
-        'nltk'
+        'nltk',
+        'pyyaml'
         ],
 
     extras_require={
