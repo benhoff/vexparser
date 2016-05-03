@@ -58,14 +58,18 @@ def main(**kwargs):
     all_intent_data = file_data.pop('intents')
     training_data = []
 
+    # NOTE: Need to make a classifier for every "intent".
+    # actually need to tranisition from intents into the idea of topics
+
     for intent_name, intent_data in all_intent_data.items():
         # this adds the training data with the intent name
         # data = [(util.clean_text(d), intent_name) for d in intent_data['data']]
+
+        # NOTE: data will be a bag o' words for each "intent"
+        # and then what we'll do is add a classifier per "intent"
         data = [util.clean_text(d) for d in intent_data['data']]
         training_data.extend(data)
 
-    # NOTE: training data changed below. Don't get comfy
-    # classify_parser = ClassifyParser(training_data)
     mark_parser = MarkParser()
 
     # clean up the data to be how topic parser expects it
