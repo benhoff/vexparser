@@ -36,15 +36,6 @@ class ClassifyParser:
 
             self._labels_data[label] = label_dict
 
-    def add_callback_manager(self, manager):
-        self.callback_managers.append(manager)
-
-    def remove_callback_manager(self, manager):
-        self.callback_managers.remove(manager)
-
-    def define_minimum_probability_for_action(self, label, probability):
-        self._labels_data[label]['minimum_probability'] = probability
-
     def parse(self, text):
         # need to define a min probability for when to take action
         probability_distribution = self._classifier.probability(text)
@@ -57,6 +48,15 @@ class ClassifyParser:
                 results.extend(result)
 
         return results
+
+    def add_callback_manager(self, manager):
+        self.callback_managers.append(manager)
+
+    def remove_callback_manager(self, manager):
+        self.callback_managers.remove(manager)
+
+    def define_minimum_probability_for_action(self, label, probability):
+        self._labels_data[label]['minimum_probability'] = probability
 
     def _callback_helper(self, key):
         """

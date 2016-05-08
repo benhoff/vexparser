@@ -10,7 +10,7 @@ with open(os.path.join(directory, 'README.rst')) as f:
 
 setup(
     name="vexparser",
-    version='0.0.3',
+    version='0.0.4',
     description='Command parsing for vexbot',
     # long_description=long_description,
     url='https://github.com/benhoff/commandparser',
@@ -27,6 +27,7 @@ setup(
     author='Ben Hoff',
     author_email='beohoff@gmail.com',
     packages= find_packages(), # exclude=['docs', 'tests']
+    entry_points={'vexbot.plugins': ['vexparser=vexparser.__main__'],},
     install_requires=[
         'pluginmanager',
         'pyzmq',

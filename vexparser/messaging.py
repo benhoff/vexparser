@@ -49,6 +49,6 @@ class Messaging:
                     # not respond if so
                     count_difference = self._counter - past_count
                     if self._counter - past_count > 8 or past_count == 0:
-                        frame = ['listener', 'MSG', 'Vex', result]
+                        frame = ['vex', 'MSG', 'Vex', result]
                         self.publish_socket.send_pyobj(frame)
                         self._memory[result] = self._counter

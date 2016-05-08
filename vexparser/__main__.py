@@ -2,6 +2,7 @@ import os
 import argparse
 
 import yaml
+from zmq import ZMQError
 
 from vexparser.classification_parser import ClassifyParser
 from vexparser.mark_parser import MarkParser
@@ -21,7 +22,7 @@ def main(**kwargs):
     if not kwargs:
         kwargs = _get_kwargs()
 
-    data_file = kwargs['data_file']
+    data_file = kwargs['settings_path']
     with open(data_file) as f:
         file_data = yaml.load(f)
 
@@ -61,14 +62,21 @@ def main(**kwargs):
 
     parsers = [mark_parser, classify_parser]
 
-    messaging = Messaging(parsers, **file_data)
+    already_running = False
 
-    messaging.run()
+    # FIXME
+    try:
+        messaging = Messaging(parsers, **file_data)
+        messaging.run()
+    except ZMQError:
+        pass
+
 
 
 def _get_kwargs():
     parser = argparse.ArgumentParser()
-    parser.add_argument('data_file', action='store')
+    parser.add_argument('--settings_path',
+                        action='store')
 
     return vars(parser.parse_args())
 
