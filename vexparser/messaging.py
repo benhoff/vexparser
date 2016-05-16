@@ -17,7 +17,7 @@ class Messaging:
             self.subscription_socket.connect(addr)
 
         self.publish_socket = context.socket(zmq.PUB)
-        self.publish_socket.bind(kwargs['publish_address'])
+        self.publish_socket.connect(kwargs['publish_address'])
         if parsers is None:
             parsers = []
 
