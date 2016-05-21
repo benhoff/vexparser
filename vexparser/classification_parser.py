@@ -1,10 +1,10 @@
-from textblob.classifiers import NaiveBayesClassifier
+# from textblob.classifiers import NaiveBayesClassifier
 from textblob.classifiers import MaxEntClassifier
 
 
 class _Classifier:
     def __init__(self, data):
-        #self._classifier = NaiveBayesClassifier(data)
+        # self._classifier = NaiveBayesClassifier(data)
         self._classifier = MaxEntClassifier(data)
 
     def update(self, data):
@@ -25,7 +25,7 @@ class ClassifyParser:
     def __init__(self, training_data):
         self._classifier = _Classifier(training_data)
         self.callback_managers = []
-        self._labels_data= {}
+        self._labels_data = {}
 
         def _default_action():
             return None

@@ -1,4 +1,3 @@
-import os
 import argparse
 
 import yaml
@@ -62,15 +61,12 @@ def main(**kwargs):
 
     parsers = [mark_parser, classify_parser]
 
-    already_running = False
-
     # FIXME
     try:
         messaging = Messaging(parsers, **file_data)
         messaging.run()
     except ZMQError:
         pass
-
 
 
 def _get_kwargs():

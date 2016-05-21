@@ -1,5 +1,4 @@
 import zmq
-import vexparser.util as util
 
 
 class Messaging:
@@ -28,7 +27,7 @@ class Messaging:
     def run(self):
         while True:
             frame = self.subscription_socket.recv_pyobj()
-            # add one to the counter 
+            # add one to the counter
             self._counter += 1
             if len(frame) == 4:
                 msg = frame.pop()
@@ -47,7 +46,6 @@ class Messaging:
                     past_count = self._memory.get(result, 0)
                     # check to see if this was responded to recently and
                     # not respond if so
-                    count_difference = self._counter - past_count
                     if self._counter - past_count > 8 or past_count == 0:
                         frame = ['vex', 'MSG', 'Vex', result]
                         self.publish_socket.send_pyobj(frame)
