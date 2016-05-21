@@ -13,14 +13,15 @@ _tbl = None
 _stopwords = None
 
 def _get_stopwords():
+    global _tbl, _stopwords
     _tbl = dict.fromkeys(i for i in range(sys.maxunicode)
                          if unicodedata.category(chr(i)).startswith('P'))
 
     _stopwords = dict.fromkeys(s for s in set(stopwords.words('english')))
 
 
-def clean_text(str, stopwords):
-    if _tbl is None:
+def clean_text(str):
+    if _tbl is None or _stopwords is None:
         _get_stopwords()
 
     # get rid of the puncuation
