@@ -51,6 +51,7 @@ class Messaging:
                     # check to see if this was responded to recently and
                     # not respond if so
                     if self._counter - past_count > 8 or past_count == 0:
-                        frame = ['vex', 'MSG', 'Vex', result]
-                        self.publish_socket.send_pyobj(frame)
+                        frame = ['vex'.encode('ascii'),
+                                 pickle.dumps(['MSG', 'Vex', result])]
+                        self.publish_socket.send_multipart(frame)
                         self._memory[result] = self._counter
