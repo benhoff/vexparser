@@ -1,3 +1,4 @@
+import pickle
 import zmq
 
 
@@ -26,7 +27,10 @@ class Messaging:
 
     def run(self):
         while True:
-            frame = self.subscription_socket.recv_pyobj()
+            frame = self.subscription_socket.recv_multipart()
+            frame = [frame[0].decode('ascii'),
+                     *pickle.loads(frame[1])]
+
             # add one to the counter
             self._counter += 1
             if len(frame) == 4:
