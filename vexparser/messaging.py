@@ -1,5 +1,5 @@
-import pickle
 import zmq
+from vexmessage import create_vex_message, decode_vex_message
 
 
 class Messaging:
@@ -28,13 +28,12 @@ class Messaging:
     def run(self):
         while True:
             frame = self.subscription_socket.recv_multipart()
-            frame = [frame[0].decode('ascii'),
-                     *pickle.loads(frame[1])]
+            msg = decode_vex_message(frame)
 
             # add one to the counter
             self._counter += 1
-            if len(frame) == 4:
-                msg = frame.pop()
+            if msg.type == 'MSG':
+                msg = msg.contents.[1]
                 # TODO: move into the classify parser
                 # msg = util.clean_text(msg)
                 parse_result = []
@@ -50,8 +49,15 @@ class Messaging:
                     past_count = self._memory.get(result, 0)
                     # check to see if this was responded to recently and
                     # not respond if so
-                    if self._counter - past_count > 8 or past_count == 0:
-                        frame = ['vex'.encode('ascii'),
-                                 pickle.dumps(['MSG', 'Vex', result])]
+                    if (self._counter - past_count > 8 or
+                            past_count == 0 or
+                            msg[0] == '!'):
+
+                        frame = create_vex_message('',
+                                                   'vex',
+                                                   'MSG',
+                                                   'Vex',
+                                                   result)
+
                         self.publish_socket.send_multipart(frame)
                         self._memory[result] = self._counter

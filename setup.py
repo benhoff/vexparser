@@ -10,7 +10,7 @@ with open(os.path.join(directory, 'README.rst')) as f:
 
 setup(
     name="vexparser",
-    version='0.1.2',
+    version='0.2.0',
     description='Command parsing for vexbot',
     # long_description=long_description,
     url='https://github.com/benhoff/commandparser',
@@ -34,7 +34,8 @@ setup(
         'numpy',
         'textblob',
         'nltk',
-        'pyyaml'
+        'pyyaml',
+        'vexmessage',
         ],
 
     extras_require={
