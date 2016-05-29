@@ -33,7 +33,7 @@ class Messaging:
             # add one to the counter
             self._counter += 1
             if msg.type == 'MSG':
-                msg = msg.contents.[1]
+                msg = msg.contents[1]
                 # TODO: move into the classify parser
                 # msg = util.clean_text(msg)
                 parse_result = []
