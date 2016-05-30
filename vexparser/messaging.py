@@ -53,11 +53,12 @@ class Messaging:
                             past_count == 0 or
                             msg[0] == '!'):
 
+                        # FIXME
                         frame = create_vex_message('',
                                                    'vex',
                                                    'MSG',
-                                                   'Vex',
-                                                   result)
+                                                   ('Vex',
+                                                    result))
 
                         self.publish_socket.send_multipart(frame)
                         self._memory[result] = self._counter

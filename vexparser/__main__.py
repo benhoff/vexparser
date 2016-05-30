@@ -9,6 +9,12 @@ from vexparser.messaging import Messaging
 from vexparser.callback_manager import CallbackManager
 import vexparser.util as util
 
+try:
+    import setproctitle
+    setproctitle.setproctitle('vexparser')
+except ImportError:
+    pass
+
 
 def _return_closure(text):
     def _inner_function():
