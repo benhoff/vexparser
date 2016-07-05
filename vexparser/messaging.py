@@ -33,12 +33,13 @@ class Messaging:
             # add one to the counter
             self._counter += 1
             if msg.type == 'MSG':
-                msg = msg.contents[1]
+                # TODO: add in some `None` parsing here
+                string = msg.contents.get('message')
                 # TODO: move into the classify parser
                 # msg = util.clean_text(msg)
                 parse_result = []
                 for parser in self.parsers:
-                    result = parser.parse(msg)
+                    result = parser.parse(string)
                     # TODO: do more complex parsing here
                     # currently just get the first result and stop
                     if result:
@@ -51,14 +52,14 @@ class Messaging:
                     # not respond if so
                     if (self._counter - past_count > 8 or
                             past_count == 0 or
-                            msg[0] == '!'):
+                            string[0] == '!'):
 
                         # FIXME
-                        frame = create_vex_message('',
-                                                   'vex',
+                        frame = create_vex_message(msg.source,
+                                                   'vexparser',
                                                    'MSG',
-                                                   ('Vex',
-                                                    result))
+                                                   author='Vex',
+                                                   message=result)
 
                         self.publish_socket.send_multipart(frame)
                         self._memory[result] = self._counter
