@@ -54,12 +54,27 @@ class Messaging:
                             past_count == 0 or
                             string[0] == '!'):
 
+                        keys_to_pop = ['source', 'to', 'response', 'author', 'message']
+                        past_msg_content = dict(msg.contents)
+
+                        _pop_helper(past_msg_content, keys_to_pop)
+
                         # FIXME
                         frame = create_vex_message(msg.source,
                                                    'vexparser',
-                                                   'MSG',
+                                                   'RSP',
                                                    author='Vex',
-                                                   message=result)
+                                                   to=msg.contents.get('author'),
+                                                   response=result,
+                                                   **past_msg_content)
 
                         self.publish_socket.send_multipart(frame)
                         self._memory[result] = self._counter
+
+
+def _pop_helper(dict_, keys):
+    for key in keys:
+        try:
+            dict_.pop(key)
+        except KeyError:
+            pass

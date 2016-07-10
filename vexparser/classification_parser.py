@@ -42,7 +42,6 @@ class ClassifyParser:
         results = []
         for k, v in self._labels_data.items():
             value_prob = probability_distribution.prob(k)
-            print(value_prob, k)
             if v.get('minimum_probability', 0.9) < value_prob:
                 result = self._callback_helper(k)
                 results.extend(result)
